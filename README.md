@@ -1,0 +1,1 @@
+![Quien es quien - azul](./doc/Quien-es-quien.jpg)
