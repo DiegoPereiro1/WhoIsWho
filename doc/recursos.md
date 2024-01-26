@@ -43,6 +43,18 @@ T = [charles/[bigote, rubio, ojos_marrones, labios_gruesos, boca_grande], claire
 ?- anadir(charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande], [charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande]], T).
 false.
 
+?- tiene(maria, sombrero).
+true ;
+false.
+
+?- tiene(maria, sombrero).
+true.
+
+?- test(charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande], charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande]).
+true.
+
+?- test(personaje(maria / _), personaje(maria / _)).
+true.
 
 ## Debugger
 

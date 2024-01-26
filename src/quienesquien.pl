@@ -65,11 +65,12 @@ evaluar(Meta):- solucion(20,[3/2,1/1,3/1,1/2,2/1,2/2,1/3,2/3,3/3],Meta,[]).
 
 % funcion test objetivo
 
-test([P]).
+test(Nombre / _,  Nombre / _).
+test(personaje(P), personaje(P)).
 
 % Predicados para consultar características de los personajes
 
-tiene_caracteristica(Nombre, Caracteristica) :-
+tiene(Nombre, Caracteristica) :-
 
     personaje(Nombre / Caracteristicas),
 
@@ -79,7 +80,7 @@ tiene_caracteristica(Nombre, Caracteristica) :-
 
 % ¿Juan lleva gafas?
 
-% ?- tiene_caracteristica(juan, gafas).
+% ?- tiene(juan, gafas).
 
 % Respuesta: true
 
