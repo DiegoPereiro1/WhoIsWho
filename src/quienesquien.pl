@@ -61,7 +61,7 @@ personaje(charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande])
 
 % main
 
-evaluar(Meta):- solucion(20,[3/2,1/1,3/1,1/2,2/1,2/2,1/3,2/3,3/3],Meta,[]).
+% evaluar(Meta):- solucion(20,[3/2,1/1,3/1,1/2,2/1,2/2,1/3,2/3,3/3],Meta,[]).
 
 % funcion test objetivo
 
@@ -70,17 +70,28 @@ test(personaje(P), personaje(P)).
 
 % Predicados para consultar características de los personajes
 
-tiene(Nombre, Caracteristica) :-
-
+tiene(Nombre , Caracteristica) :-
     personaje(Nombre / Caracteristicas),
-
     member(Caracteristica, Caracteristicas).
 
-% Ejemplos de consultas
 
-% ¿Juan lleva gafas?
+/*
+ * funcion sucesora
+ */
 
-% ?- tiene(juan, gafas).
 
-% Respuesta: true
+f_sucesora(Caracteristica, Tablero, Supervivientes) :- true.
+    % concatenacion listas para borrar elemento ver mis transparencias
+    % recorrer tablero eliminando personajes que no tienen esa caracteristica
+
+bajar(_ , [], []).
+
+bajar(Caracteristica, [P|Resto], Up) :-
+    tiene(P, Caracteristica),
+    bajar(Caracteristica, Resto, Up).
+
+
+del(X, [X|Tail], Tail).
+del(X, [Y|Tail], [Y|Tail1]) :-
+    del(X, Tail, Tail1).
 
