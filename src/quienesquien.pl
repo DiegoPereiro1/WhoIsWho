@@ -23,8 +23,7 @@ add(T, Tablero) :-
     add([Nombre|T], Tablero), !.
 
 add(T, Tablero):-
-	Tablero = T,!,
-    escribir_tablero(Tablero).
+	Tablero = T,!.
 
 /*anadir(P, [], [P|[]]).
 
@@ -70,7 +69,6 @@ test(personaje(P), personaje(P)).
 
 % Predicados para consultar características de los personajes
 
-
 tiene(Nombre , Caracteristica) :-
     personaje(Nombre / Caracteristicas),
     member(Caracteristica, Caracteristicas).
@@ -80,14 +78,12 @@ tiene(Nombre , Caracteristica) :-
  * funcion sucesora
  */
 
+% recorrer tablero eliminando personajes que no tienen esa caracteristica
 
 f_sucesora(Caracteristica, Tablero, Supervivientes) :- 
-    levantar_tablero(Tablero), escribir_tablero(Tablero),
-    bajar(Caracteristica, Tablero, Supervivientes),
-    escribir_tablero(Supervivientes).
+    levantar_tablero(Tablero),
+    bajar(Caracteristica, Tablero, Supervivientes).
 
-    % concatenacion listas para borrar elemento ver mis transparencias
-    % recorrer tablero eliminando personajes que no tienen esa caracteristica
 
 bajar(_ , [], []).
 
@@ -95,11 +91,8 @@ bajar(Caracteristica, [Nombre|Resto], [Nombre| Up]) :-
     tiene(Nombre , Caracteristica),
     bajar(Caracteristica, Resto, Up).
 
+% proporcionar en el backtraking una salida true al predicado 
+% cuando el personaje no tiene la caracteristica
 bajar(Caracteristica, [Nombre|Resto], Up) :-
     not(tiene(Nombre , Caracteristica)),
     bajar(Caracteristica, Resto, Up).
-
-del(X, [X|Tail], Tail).
-del(X, [Y|Tail], [Y|Tail1]) :-
-    del(X, Tail, Tail1).
-
