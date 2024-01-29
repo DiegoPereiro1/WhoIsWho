@@ -40,7 +40,7 @@ escribir_tablero([Nombre | Resto]):-
     escribir_tablero(Resto).
 
 escribirPersonaje(Nombre):-
-    write(Nombre), nl.
+    personaje(Nombre / C), write(Nombre), write(C), nl.
 
 % BBDD para representar personajes y sus características físicas mediante estructuras
 
@@ -119,3 +119,29 @@ add_not([X|Tail], L, Resultado) :-
 add_not([X|Tail], L, L) :-
     member(X , L),
     add_not(Tail, L, L).
+
+
+% play game
+
+play(Goal) :- 
+% falta seleccionar personaje por nombre y sus caracteristicas
+    levantar_tablero(Tablero),
+    /* escribir_tablero(Tablero),
+    read(C),
+    f_sucesora(C, Tablero, Supervivientes),
+    escribir_tablero(Supervivientes).*/
+    interactivo(Goal, Tablero).
+
+    % ?- length(List,4), test(personaje(Goal), [P|[]]).
+
+interactivo(Goal, Tablero) :-
+    escribir_tablero(Tablero),
+    read(C),
+    f_sucesora(C, Tablero, Supervivientes),
+    ( length(Supervivientes, 1) -> 
+    nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
+    interactivo(Goal, Supervivientes)).
+
+
+% pasarle el tablero /supervivientes
+nombre([Nombre|_], Nombre).
