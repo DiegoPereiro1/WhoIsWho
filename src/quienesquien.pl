@@ -75,6 +75,7 @@ tiene(Nombre , Caracteristica) :-
  */
 
 % recorrer tablero eliminando personajes que no tienen esa caracteristica
+% supervivientes es el estado
 
 f_sucesora(Caracteristica, Tablero, Supervivientes) :- 
     levantar_tablero(Tablero),
@@ -102,13 +103,11 @@ bajar(Caracteristica, [Nombre|Resto], Up) :-
 % necesito una lista con las caracteristicas? pues formarla desde caract
 % de la bbdd como levantar_tablero
 
-/* caracteristicas(Caracteristicas) :-
-    add([], Caracteristicas).
+% ir tirando personajes del tablero
+% usar levantar_tablero() para formarlo == estado inicial
+% y aplicar funcion sucesora para pasar de un estado a otro
+% hasta dejar solo uno == estado objetivo
 
-add(C, Caracteristicas) :-
-    personaje( _ / Caracteristicas_de_P),
-    not(member(Caracteristica, C)),
-    add([C|Caracteristica], Caracteristicas), !.*/
 
 
 add_not([] , L, L).
