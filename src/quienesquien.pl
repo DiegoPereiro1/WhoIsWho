@@ -42,10 +42,6 @@ escribir_tablero([Nombre | Resto]):-
 escribirPersonaje(Nombre):-
     write(Nombre), nl.
 
-% busqueda avara
-
-
-
 % BBDD para representar personajes y sus características físicas mediante estructuras
 
 personaje(herman / [pelirrojo, calva, nariz_grande, ojos_marrones]).
@@ -84,7 +80,6 @@ f_sucesora(Caracteristica, Tablero, Supervivientes) :-
     levantar_tablero(Tablero),
     bajar(Caracteristica, Tablero, Supervivientes).
 
-
 bajar(_ , [], []).
 
 bajar(Caracteristica, [Nombre|Resto], [Nombre| Up]) :-
@@ -96,3 +91,32 @@ bajar(Caracteristica, [Nombre|Resto], [Nombre| Up]) :-
 bajar(Caracteristica, [Nombre|Resto], Up) :-
     not(tiene(Nombre , Caracteristica)),
     bajar(Caracteristica, Resto, Up).
+
+/*
+ * busqueda avara
+ */
+
+% contar cuantos personajes sobreviven a una caracteristica
+% y seleccionar el o las menores.
+
+% necesito una lista con las caracteristicas? pues formarla desde caract
+% de la bbdd como levantar_tablero
+
+/* caracteristicas(Caracteristicas) :-
+    add([], Caracteristicas).
+
+add(C, Caracteristicas) :-
+    personaje( _ / Caracteristicas_de_P),
+    not(member(Caracteristica, C)),
+    add([C|Caracteristica], Caracteristicas), !.*/
+
+
+add_not([] , L, L).
+
+add_not([X|Tail], L, Resultado) :-
+    not(member(X , L)),
+    add_not(Tail, [X|L], Resultado).
+
+add_not([X|Tail], L, L) :-
+    member(X , L),
+    add_not(Tail, L, L).
