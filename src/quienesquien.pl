@@ -18,13 +18,13 @@ levantar_tablero(Tablero) :-
     add([], Tablero).
 
 add(T, Tablero) :-
-    personaje(P),
-    not(member(P, T)),
-    add([P|T], Tablero), !.
+    personaje(Nombre / _),
+    not(member(Nombre, T)),
+    add([Nombre|T], Tablero), !.
 
 add(T, Tablero):-
 	Tablero = T,!,
-    escribir(Tablero).
+    escribir_tablero(Tablero).
 
 /*anadir(P, [], [P|[]]).
 
@@ -33,15 +33,15 @@ anadir(P, T, [P|T]) :-
 
 % ------ mostrar tablero en consola (conectar a Python) ------
 
-escribir([]):-
+escribir_tablero([]):-
     nl.
 
-escribir([Personaje | Resto]):-
-    escribirPersonaje(Personaje),
-    escribir(Resto).
+escribir_tablero([Nombre | Resto]):-
+    escribirPersonaje(Nombre),
+    escribir_tablero(Resto).
 
-escribirPersonaje(Nombre / Caracteristicas):-
-    write(Nombre / Caracteristicas), nl.
+escribirPersonaje(Nombre):-
+    write(Nombre), nl.
 
 % busqueda avara
 
@@ -70,6 +70,7 @@ test(personaje(P), personaje(P)).
 
 % Predicados para consultar características de los personajes
 
+
 tiene(Nombre , Caracteristica) :-
     personaje(Nombre / Caracteristicas),
     member(Caracteristica, Caracteristicas).
@@ -80,16 +81,23 @@ tiene(Nombre , Caracteristica) :-
  */
 
 
-f_sucesora(Caracteristica, Tablero, Supervivientes) :- true.
+f_sucesora(Caracteristica, Tablero, Supervivientes) :- 
+    levantar_tablero(Tablero), escribir_tablero(Tablero),
+    bajar(Caracteristica, Tablero, Supervivientes),
+    escribir_tablero(Supervivientes).
+
     % concatenacion listas para borrar elemento ver mis transparencias
     % recorrer tablero eliminando personajes que no tienen esa caracteristica
 
 bajar(_ , [], []).
 
-bajar(Caracteristica, [P|Resto], Up) :-
-    tiene(P, Caracteristica),
+bajar(Caracteristica, [Nombre|Resto], [Nombre| Up]) :-
+    tiene(Nombre , Caracteristica),
     bajar(Caracteristica, Resto, Up).
 
+bajar(Caracteristica, [Nombre|Resto], Up) :-
+    not(tiene(Nombre , Caracteristica)),
+    bajar(Caracteristica, Resto, Up).
 
 del(X, [X|Tail], Tail).
 del(X, [Y|Tail], [Y|Tail1]) :-
