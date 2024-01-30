@@ -109,16 +109,15 @@ bajar(Caracteristica, [Nombre|Resto], Up) :-
 % hasta dejar solo uno == estado objetivo
 
 
-
 add_not([] , L, L).
 
 add_not([X|Tail], L, Resultado) :-
     not(member(X , L)),
     add_not(Tail, [X|L], Resultado).
 
-add_not([X|Tail], L, L) :-
+add_not([X|Tail], L, Resultado) :-
     member(X , L),
-    add_not(Tail, L, L).
+    add_not(Tail, L, Resultado).
 
 
 % play game
@@ -170,7 +169,5 @@ is(Goal, C, Tablero) :-
     nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
     is(Goal, C, Supervivientes)).
 */
-
-% necesito coleccionar todas las características
 
 
