@@ -78,7 +78,7 @@ tiene(Nombre , Caracteristica) :-
 % supervivientes es el estado
 
 f_sucesora(Caracteristica, Tablero, Supervivientes) :- 
-    levantar_tablero(Tablero),
+    % levantar_tablero(Tablero),
     bajar(Caracteristica, Tablero, Supervivientes).
 
 bajar(_ , [], []).
@@ -136,7 +136,9 @@ play(Goal) :-
 
 interactivo(Goal, Tablero) :-
     escribir_tablero(Tablero),
+    personaje(Goal / Caracteristicas),
     read(C),
+    member(C, Caracteristicas),
     f_sucesora(C, Tablero, Supervivientes),
     ( length(Supervivientes, 1) -> 
     nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
@@ -145,3 +147,8 @@ interactivo(Goal, Tablero) :-
 
 % pasarle el tablero /supervivientes
 nombre([Nombre|_], Nombre).
+
+% seleccionar caract personaje goal
+
+caracteristicas(Goal, C) :-
+    personaje(Goal / C).
