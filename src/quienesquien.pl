@@ -138,7 +138,7 @@ interactivo(Goal, Tablero) :-
     escribir_tablero(Tablero),
     personaje(Goal / Caracteristicas),
     read(C),
-    member(C, Caracteristicas),
+    member(C, Caracteristicas), % false si escribes una caract que no tiene Goal.
     f_sucesora(C, Tablero, Supervivientes),
     ( length(Supervivientes, 1) -> 
     nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
@@ -152,3 +152,25 @@ nombre([Nombre|_], Nombre).
 
 caracteristicas(Goal, C) :-
     personaje(Goal / C).
+
+
+% main
+% paso yo el personaje objetivo.
+
+/*
+play(Goal) :- 
+    personaje(Goal / C),
+    levantar_tablero(Tablero), % tablero estado inicial
+    ia(Goal, C).
+
+is(Goal, C, Tablero) :-
+    seleccionar_caracteristica_del_cjto_de_caracteristicas_que_tenga_menos_supervivientes,
+    f_sucesora(C, Tablero, Supervivientes), % con la caract seleccionada
+     ( length(Supervivientes, 1) -> 
+    nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
+    is(Goal, C, Supervivientes)).
+*/
+
+% necesito coleccionar todas las características
+
+
