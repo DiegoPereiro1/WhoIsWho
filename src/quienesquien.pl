@@ -40,7 +40,7 @@ escribir_tablero([Nombre | Resto]):-
     escribir_tablero(Resto).
 
 escribirPersonaje(Nombre):-
-    write(Nombre), nl.
+    personaje(Nombre / C), write(Nombre), write(C), nl.
 
 % BBDD para representar personajes y sus características físicas mediante estructuras
 
@@ -78,7 +78,7 @@ tiene(Nombre , Caracteristica) :-
 % supervivientes es el estado
 
 f_sucesora(Caracteristica, Tablero, Supervivientes) :- 
-    levantar_tablero(Tablero),
+    % levantar_tablero(Tablero),
     bajar(Caracteristica, Tablero, Supervivientes).
 
 bajar(_ , [], []).
@@ -109,13 +109,78 @@ bajar(Caracteristica, [Nombre|Resto], Up) :-
 % hasta dejar solo uno == estado objetivo
 
 
+rasgos([P| Resto], Resultado) :-
+    personaje(P / Caracteristicas),
+    add_not(Caracteristicas, [] , C),
+    resto(Resto, C, Resultado).
 
-add_not([] , L, L).
+resto([P|Resto], C, Todas) :-
+    personaje(P / Caracteristicas),
+    add_not(Caracteristicas, C , Resultado),
+    resto(Resto, Resultado, Todas).
+
+resto([], C, C).
+
+
+add_not([], L, L).
 
 add_not([X|Tail], L, Resultado) :-
     not(member(X , L)),
     add_not(Tail, [X|L], Resultado).
 
-add_not([X|Tail], L, L) :-
+add_not([X|Tail], L, Resultado) :-
     member(X , L),
-    add_not(Tail, L, L).
+    add_not(Tail, L, Resultado).
+
+
+% play game
+
+play(Goal) :- 
+% falta seleccionar personaje por nombre y sus caracteristicas
+    levantar_tablero(Tablero),
+    /* escribir_tablero(Tablero),
+    read(C),
+    f_sucesora(C, Tablero, Supervivientes),
+    escribir_tablero(Supervivientes).*/
+    interactivo(Goal, Tablero).
+
+    % ?- length(List,4), test(personaje(Goal), [P|[]]).
+
+interactivo(Goal, Tablero) :-
+    escribir_tablero(Tablero),
+    personaje(Goal / Caracteristicas),
+    read(C),
+    member(C, Caracteristicas), % false si escribes una caract que no tiene Goal.
+    f_sucesora(C, Tablero, Supervivientes),
+    ( length(Supervivientes, 1) -> 
+    nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
+    interactivo(Goal, Supervivientes)).
+
+
+% pasarle el tablero /supervivientes
+nombre([Nombre|_], Nombre).
+
+% seleccionar caract personaje goal
+
+caracteristicas(Personaje, C) :-
+    personaje(Personaje / C).
+
+
+% main
+% paso yo el personaje objetivo.
+
+/*
+play(Goal) :- 
+    personaje(Goal / C),
+    levantar_tablero(Tablero), % tablero estado inicial
+    ia(Goal, C).
+
+is(Goal, C, Tablero) :-
+    seleccionar_caracteristica_del_cjto_de_caracteristicas_que_tenga_menos_supervivientes,
+    f_sucesora(C, Tablero, Supervivientes), % con la caract seleccionada
+     ( length(Supervivientes, 1) -> 
+    nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
+    is(Goal, C, Supervivientes)).
+*/
+
+
