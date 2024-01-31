@@ -109,7 +109,20 @@ bajar(Caracteristica, [Nombre|Resto], Up) :-
 % hasta dejar solo uno == estado objetivo
 
 
-add_not([] , L, L).
+rasgos([P| Resto], Resultado) :-
+    personaje(P / Caracteristicas),
+    add_not(Caracteristicas, [] , C),
+    resto(Resto, C, Resultado).
+
+resto([P|Resto], C, Todas) :-
+    personaje(P / Caracteristicas),
+    add_not(Caracteristicas, C , Resultado),
+    resto(Resto, Resultado, Todas).
+
+resto([], C, C).
+
+
+add_not([], L, L).
 
 add_not([X|Tail], L, Resultado) :-
     not(member(X , L)),
@@ -149,8 +162,8 @@ nombre([Nombre|_], Nombre).
 
 % seleccionar caract personaje goal
 
-caracteristicas(Goal, C) :-
-    personaje(Goal / C).
+caracteristicas(Personaje, C) :-
+    personaje(Personaje / C).
 
 
 % main
