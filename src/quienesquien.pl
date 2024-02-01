@@ -138,10 +138,12 @@ add_not([X|Tail], L, Resultado) :-
 play(Goal) :- 
 % falta seleccionar personaje por nombre y sus caracteristicas
     levantar_tablero(Tablero),
-    /* escribir_tablero(Tablero),
+    escribir_tablero(Tablero),
+    rasgos(Tablero, Caracteristicas),
+    escribir_caracteristicas(Caracteristicas),
     read(C),
     f_sucesora(C, Tablero, Supervivientes),
-    escribir_tablero(Supervivientes).*/
+    escribir_tablero(Supervivientes),
     interactivo(Goal, Tablero).
 
     % ?- length(List,4), test(personaje(Goal), [P|[]]).
@@ -149,6 +151,7 @@ play(Goal) :-
 interactivo(Goal, Tablero) :-
     escribir_tablero(Tablero),
     personaje(Goal / Caracteristicas),
+    escribir_caracteristicas(Caracteristicas),
     read(C),
     member(C, Caracteristicas), % false si escribes una caract que no tiene Goal.
     f_sucesora(C, Tablero, Supervivientes),
@@ -165,6 +168,12 @@ nombre([Nombre|_], Nombre).
 caracteristicas(Personaje, C) :-
     personaje(Personaje / C).
 
+escribir_caracteristicas([]) :-
+    nl.
+
+escribir_caracteristicas([C|Resto]) :-
+    write(C), write(' - '),
+    escribir_caracteristicas(Resto).
 
 % main
 % paso yo el personaje objetivo.
