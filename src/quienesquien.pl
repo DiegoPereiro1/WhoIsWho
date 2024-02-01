@@ -63,6 +63,7 @@ personaje(charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande])
 test([Nombre|_],  Nombre) :-
     write(Nombre), write(' Acertaste!').
 test([Nombre| _], Goal) :- 
+    Nombre \= Goal,
     % de momento no se alcanza nunca porque falla member(C, Caracteristicas).
     write('Loose!').
 
@@ -80,10 +81,11 @@ tiene(Nombre , Caracteristica) :-
 
 % recorrer tablero eliminando personajes que no tienen esa caracteristica
 % supervivientes es el estado
-
 f_sucesora(Caracteristica, Caracteristicas, Tablero, Supervivientes) :- 
-    member(Caracteristica, Caracteristicas), 
-    bajar(Caracteristica, Tablero, Supervivientes).
+    ( member(Caracteristica, Caracteristicas) ->
+    bajar(Caracteristica, Tablero, Supervivientes);
+    bajar_not(Caracteristica, Tablero, Supervivientes)).
+
 
 bajar(_ , [], []).
 
@@ -96,6 +98,18 @@ bajar(Caracteristica, [Nombre|Resto], [Nombre| Up]) :-
 bajar(Caracteristica, [Nombre|Resto], Up) :-
     not(tiene(Nombre , Caracteristica)),
     bajar(Caracteristica, Resto, Up).
+
+
+bajar_not(_ , [], []).
+
+bajar_not(Caracteristica, [Nombre|Resto], [Nombre| Up]) :-
+    not(tiene(Nombre , Caracteristica)),
+    bajar_not(Caracteristica, Resto, Up).
+
+bajar_not(Caracteristica, [Nombre|Resto], Up) :-
+    tiene(Nombre , Caracteristica),
+    bajar_not(Caracteristica, Resto, Up).
+
 
 /*
  * busqueda avara
@@ -147,15 +161,12 @@ play(Goal) :-
     escribir_caracteristicas(Rasgos),
     interactivo(Goal, Caracteristicas, Tablero, Rasgos).
 
-    % ?- length(List,4), test(personaje(Goal), [P|[]]).
-
 interactivo(Goal, Caracteristicas, Tablero, Rasgos) :-
     escribir_tablero(Tablero),
     read(C),
-    % member(C, Caracteristicas), % false si escribes una caract que no tiene Goal.
     f_sucesora(C, Caracteristicas, Tablero, Supervivientes),
     ( length(Supervivientes, 1) -> 
-    test(Supervivientes, Nombre); 
+    test(Supervivientes, Goal); 
     interactivo(Goal, Caracteristicas, Supervivientes, Rasgos)).
 
 % seleccionar caract personaje goal
