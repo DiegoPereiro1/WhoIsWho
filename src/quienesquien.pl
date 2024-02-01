@@ -60,11 +60,9 @@ personaje(charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande])
 
 % funcion test objetivo
 
-test(Nombre / _ ,  Nombre / _) :-
-    write('Acertaste!').
-test(personaje(P), personaje(P)) :-
-    write('Acertaste!').
-test(Nombre / _ , Goal /_) :- 
+test([Nombre|_],  Nombre) :-
+    write(Nombre), write(' Acertaste!').
+test([Nombre| _], Goal) :- 
     % de momento no se alcanza nunca porque falla member(C, Caracteristicas).
     write('Loose!').
 
@@ -143,26 +141,22 @@ add_not([X|Tail], L, Resultado) :-
 
 play(Goal) :- 
 % falta seleccionar personaje por nombre y sus caracteristicas
+    personaje(Goal / Caracteristicas),
     levantar_tablero(Tablero),
     rasgos(Tablero, Rasgos),
     escribir_caracteristicas(Rasgos),
-    interactivo(Goal, Tablero, Rasgos).
+    interactivo(Goal, Caracteristicas, Tablero, Rasgos).
 
     % ?- length(List,4), test(personaje(Goal), [P|[]]).
 
-interactivo(Goal, Tablero, Rasgos) :-
+interactivo(Goal, Caracteristicas, Tablero, Rasgos) :-
     escribir_tablero(Tablero),
-    personaje(Goal / Caracteristicas),
     read(C),
     % member(C, Caracteristicas), % false si escribes una caract que no tiene Goal.
     f_sucesora(C, Caracteristicas, Tablero, Supervivientes),
     ( length(Supervivientes, 1) -> 
-    nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
-    interactivo(Goal, Supervivientes, Rasgos)).
-
-
-% pasarle el tablero /supervivientes
-nombre([Nombre|_], Nombre).
+    test(Supervivientes, Nombre); 
+    interactivo(Goal, Caracteristicas, Supervivientes, Rasgos)).
 
 % seleccionar caract personaje goal
 
