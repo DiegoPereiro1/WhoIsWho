@@ -60,8 +60,14 @@ personaje(charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande])
 
 % funcion test objetivo
 
-test(Nombre / _,  Nombre / _).
-test(personaje(P), personaje(P)).
+test(Nombre / _ ,  Nombre / _) :-
+    write('Acertaste!').
+test(personaje(P), personaje(P)) :-
+    write('Acertaste!').
+test(Nombre / _ , Goal /_) :- 
+    % de momento no se alcanza nunca porque falla member(C, Caracteristicas).
+    write('Loose!').
+
 
 % Predicados para consultar características de los personajes
 
@@ -77,8 +83,8 @@ tiene(Nombre , Caracteristica) :-
 % recorrer tablero eliminando personajes que no tienen esa caracteristica
 % supervivientes es el estado
 
-f_sucesora(Caracteristica, Tablero, Supervivientes) :- 
-    % levantar_tablero(Tablero),
+f_sucesora(Caracteristica, Caracteristicas, Tablero, Supervivientes) :- 
+    member(Caracteristica, Caracteristicas), 
     bajar(Caracteristica, Tablero, Supervivientes).
 
 bajar(_ , [], []).
@@ -148,8 +154,8 @@ interactivo(Goal, Tablero, Rasgos) :-
     escribir_tablero(Tablero),
     personaje(Goal / Caracteristicas),
     read(C),
-    member(C, Caracteristicas), % false si escribes una caract que no tiene Goal.
-    f_sucesora(C, Tablero, Supervivientes),
+    % member(C, Caracteristicas), % false si escribes una caract que no tiene Goal.
+    f_sucesora(C, Caracteristicas, Tablero, Supervivientes),
     ( length(Supervivientes, 1) -> 
     nombre(Supervivientes, Nombre), test(personaje(Goal), personaje(Nombre)); 
     interactivo(Goal, Supervivientes, Rasgos)).
