@@ -6,12 +6,6 @@
  * construir tablero = conjunto de personajes, lista de listas
  */
 
-/*levantar_tablero(Tablero) :-
-    personaje(P), 
-    anadir(P, Tablero, Tablero_up),
-    escribir(Tablero_up),
-    levantar_tablero(Tablero_up).*/
-
 % levantar_tablero(Tablero) :- findall(P, personaje(P), Tablero).
 
 levantar_tablero(Tablero) :-
@@ -24,11 +18,6 @@ add(T, Tablero) :-
 
 add(T, Tablero):-
 	Tablero = T,!.
-
-/*anadir(P, [], [P|[]]).
-
-anadir(P, T, [P|T]) :-
-    \+ member(P, T).     % not */
 
 % ------ mostrar tablero en consola (conectar a Python) ------
 
@@ -44,15 +33,17 @@ escribirPersonaje(Nombre):-
 
 % BBDD para representar personajes y sus características físicas mediante estructuras
 
-personaje(herman / [pelirrojo, calva, nariz_grande, ojos_marrones]).
+personaje(herman / [hombre, pelirrojo, calva, nariz_grande, ojos_marrones]).
 
 personaje(maria / [pelo_largo, sombrero, pendientes, castaño, mujer, ojos_marrones, boca_pequeña]).
 
 personaje(claire / [gafas, sombrero, mujer, pelirrojo, ojos_marrones, boca_pequeña]).
 
-personaje(alfred / [pelo_largo, bigote, pelirrojo, ojos_marrones, boca_pequeña]).
+personaje(alfred / [hombre, pelo_largo, bigote, pelirrojo, ojos_marrones, boca_pequeña]).
 
-personaje(charles / [bigote, rubio, ojos_marrones, labios_gruesos, boca_grande]).
+personaje(charles / [hombre, bigote, rubio, ojos_marrones, labios_gruesos, boca_grande, orejas_grandes]).
+
+personaje(richard / [calva, barba, ojos_marrones, orejas_grandes, bigote, hombre]).
 
 % main
 
@@ -64,7 +55,7 @@ test([Nombre|_],  Nombre) :-
     write(Nombre), write(' Acertaste!').
 test([Nombre| _], Goal) :- 
     Nombre \= Goal,
-    % de momento no se alcanza nunca porque falla member(C, Caracteristicas).
+    % de momento no se alcanza nunca porque la maquina no se equivoca al bajar
     write('Loose!').
 
 
@@ -79,7 +70,7 @@ tiene(Nombre , Caracteristica) :-
  * funcion sucesora
  */
 
-% recorrer tablero eliminando personajes que no tienen esa caracteristica
+% recorrer tablero eliminando personajes que tienen /no tienen esa caracteristica
 % supervivientes es el estado
 f_sucesora(Caracteristica, Caracteristicas, Tablero, Supervivientes) :- 
     ( member(Caracteristica, Caracteristicas) ->
@@ -126,6 +117,8 @@ bajar_not(Caracteristica, [Nombre|Resto], Up) :-
 % y aplicar funcion sucesora para pasar de un estado a otro
 % hasta dejar solo uno == estado objetivo
 
+
+% Crear el listado de todos los posibles rasgos de los personajes del tablero
 
 rasgos([P| Resto], Resultado) :-
     personaje(P / Caracteristicas),
@@ -199,3 +192,30 @@ is(Goal, C, Tablero) :-
 */
 
 
+/*
+1. Alex
+2. Alfred
+3. Anita
+4. Anne
+5. Bernard
+6. Bill
+7. Charles
+8. Claire
+9. David
+10. Eric
+11. Frans
+12. George
+13. Herman
+14. Joe
+15. Maria
+16. Max
+17. Paul
+18. Peter
+19. Philip
+20. Richard
+21. Robert
+22. Sam
+23. Susan
+24. Tom
+
+*/
