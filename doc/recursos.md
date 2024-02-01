@@ -77,3 +77,8 @@ Usar esta sintaxis:
 ## Prolog online
 
 https://swish.swi-prolog.org/p/ListOfPersons.pl 
+
+
+## TESTING
+
+Escribir los casos test desde python y chequear lo que devuelven las queries.
