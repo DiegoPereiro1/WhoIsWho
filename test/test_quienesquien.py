@@ -156,14 +156,14 @@ def test_salvar_personajes_sin_caracteristica():
     query = list(prolog.query("bajar_not(bigote, [maria, claire, herman], S)."))
     supervivientes = query[0]['S']
     assert supervivientes == ['maria', 'claire', 'herman']
-    
+
 @pytest.mark.f_sucesora
 @pytest.mark.bajar_not
 def test_bajar_personajes_con_caracteristica():
     '''
-    ?- bajar_not(bigote, [maria, claire, herman], Supervivientes).
+    ?- bajar_not(sombrero, [maria, claire, eric], Supervivientes).
     Supervivientes = [maria, claire, herman] .
     '''
-    query = list(prolog.query("bajar_not(bigote, [maria, claire, eric], S)."))
+    query = list(prolog.query("bajar_not(sombrero, [maria, claire, eric], S)."))
     supervivientes = query[0]['S']
-    assert supervivientes == ['maria', 'claire', 'eric']
+    assert supervivientes == []
