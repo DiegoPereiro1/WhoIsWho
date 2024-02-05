@@ -116,6 +116,7 @@ def test_no_es_objetivo():
 @pytest.mark.bajar
 def test_bajar_personaje():
     '''
+    Salvar a los personajes con la caracteristica por la que preguntas.
     ?- bajar(sombrero, [maria, claire, herman], Supervivientes).                               
     Supervivientes = [maria, claire] ;
     '''
@@ -142,5 +143,27 @@ def test_salvar_personajes_con_caracteristica():
     Supervivientes = [maria, claire, eric] ;
     '''
     query = list(prolog.query("bajar(sombrero, [maria, claire, eric], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['maria', 'claire', 'eric']
+
+@pytest.mark.f_sucesora
+@pytest.mark.bajar_not
+def test_salvar_personajes_sin_caracteristica():
+    '''
+    ?- bajar_not(bigote, [maria, claire, herman], Supervivientes).
+    Supervivientes = [maria, claire, herman] .
+    '''
+    query = list(prolog.query("bajar_not(bigote, [maria, claire, herman], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['maria', 'claire', 'herman']
+    
+@pytest.mark.f_sucesora
+@pytest.mark.bajar_not
+def test_bajar_personajes_con_caracteristica():
+    '''
+    ?- bajar_not(bigote, [maria, claire, herman], Supervivientes).
+    Supervivientes = [maria, claire, herman] .
+    '''
+    query = list(prolog.query("bajar_not(bigote, [maria, claire, eric], S)."))
     supervivientes = query[0]['S']
     assert supervivientes == ['maria', 'claire', 'eric']
