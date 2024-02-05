@@ -33,8 +33,8 @@ def test_personaje():
     ?- personaje(tom /_).
     false.
     '''
-    query = list(prolog.query("personaje(tom)."))
-    assert not query
+    personaje = list(prolog.query("personaje(tom)."))
+    assert not personaje
 
 @pytest.mark.tiene
 def test_tiene():
@@ -42,8 +42,8 @@ def test_tiene():
     ?- tiene(maria, sombrero).
     true ;
     '''
-    query = bool(list(prolog.query("tiene(maria, sombrero).")))
-    assert query
+    tiene = bool(list(prolog.query("tiene(maria, sombrero).")))
+    assert tiene
 
 @pytest.mark.caracteristicas
 def test_caracteristicas_personaje():
