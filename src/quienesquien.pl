@@ -89,11 +89,12 @@ personaje(max / [hombre, bigote, pelo_negro, ojos_marrones, boca_grande, labios_
 % funcion test objetivo
 
 test([Nombre|_],  Nombre) :-
-    write(Nombre), write(' Acertaste!').
+    write(Nombre), write(' Acertaste!'), !.
 test([Nombre| _], Goal) :- 
     Nombre \= Goal,
     % de momento no se alcanza nunca porque la maquina no se equivoca al bajar
-    write('Loose!').
+    write('Loose!'),
+    fail.
 
 
 % Predicados para consultar características de los personajes

@@ -33,8 +33,8 @@ def test_personaje():
     ?- personaje(tom /_).
     false.
     '''
-    personaje = list(prolog.query("personaje(tom)."))
-    assert not personaje
+    isPersonaje = list(prolog.query("personaje(tom)."))
+    assert not isPersonaje
 
 @pytest.mark.tiene
 def test_tiene():
@@ -58,3 +58,23 @@ def test_caracteristicas_personaje():
     assert caracteristicas == ['mujer', 'pelo_largo', 'sombrero', 'pendientes', 
                                'pelo_castaño', 'ojos_marrones', 'boca_pequeña', 
                                'cejas_finas', 'nariz_pequeña']
+
+@pytest.mark.objetivo
+def test_es_objetivo():
+    '''
+    ? - test([maria], maria).
+    maria Acertaste!
+    true .
+    '''
+    isGoal = list(prolog.query("test([maria], maria)"))
+    assert isGoal
+
+@pytest.mark.objetivo
+def test_no_es_objetivo():
+    '''
+    ? - test([herman], maria).
+    Loose!
+    false.
+    '''
+    isGoal = list(prolog.query("test([herman], maria)."))
+    assert not isGoal
