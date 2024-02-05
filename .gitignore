@@ -1,3 +1,25 @@
-.vscode/
+# VSCode
+.vscode
+.cache
+*.code-workspace
 
+# Python
+venv*/
+__pycache__
+
+# Pytest
+.pytest_cache
+
+# Tox
+.tox/
+square_root_testing.egg-info
+
+# Wheel
+build/
+
+# Coverage
+.coverage
+coverage_annotation/
+
+# MacOS
 .DS_Store
