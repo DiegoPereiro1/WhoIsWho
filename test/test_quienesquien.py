@@ -45,6 +45,20 @@ def test_tiene():
     tiene = bool(list(prolog.query("tiene(maria, sombrero).")))
     assert tiene
 
+@pytest.mark.tiene
+def test_tiene_c_instancias():
+    '''
+    ?- tiene(maria, C)
+    [{'C': 'mujer'}, {'C': 'pelo_largo'}, {'C': 'sombrero'}, {'C': 'pendientes'}, 
+    {'C': 'pelo_castaño'}, {'C': 'ojos_marrones'}, {'C': 'boca_pequeña'}, 
+    {'C': 'cejas_finas'}, {'C': 'nariz_pequeña'}]
+    '''
+    query = list(prolog.query("tiene(maria, C)."))
+    caracteristicas = [respuesta['C'] for respuesta in query]
+    assert caracteristicas == ['mujer', 'pelo_largo', 'sombrero',
+                               'pendientes', 'pelo_castaño', 'ojos_marrones', 
+                               'boca_pequeña', 'cejas_finas', 'nariz_pequeña']
+
 @pytest.mark.caracteristicas
 def test_caracteristicas_personaje():
     '''
@@ -78,3 +92,6 @@ def test_no_es_objetivo():
     '''
     isGoal = list(prolog.query("test([herman], maria)."))
     assert not isGoal
+
+
+
