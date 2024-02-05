@@ -167,3 +167,41 @@ def test_bajar_personajes_con_caracteristica():
     query = list(prolog.query("bajar_not(sombrero, [maria, claire, eric], S)."))
     supervivientes = query[0]['S']
     assert supervivientes == []
+
+
+@pytest.mark.f_sucesora
+@pytest.mark.bajar
+@pytest.mark.bajar_not
+def test_f_sucesora_bajar_personajes_sin_rasgo_en_objetivo():
+    '''
+    ?- f_sucesora(sombrero, [sombrero, bigote, gafas], [maria, claire, herman, alex], S).
+    S = [maria, claire] ;
+    '''
+    query = list(prolog.query("f_sucesora(sombrero, [sombrero, bigote, gafas], [maria, claire, herman, alex], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['maria', 'claire']
+
+    query = list(prolog.query("f_sucesora(bigote, [sombrero, bigote, gafas], [maria, claire, herman, alex], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['alex']
+
+@pytest.mark.f_sucesora
+@pytest.mark.bajar
+@pytest.mark.bajar_not
+def test_f_sucesora_viven_personajes_sin_rasgo_no_objetivo():
+    '''
+    f_sucesora(mofletes, [sombrero, bigote, gafas], [maria, claire, herman, eric], S).
+    S = [maria, claire, herman, eric] ;
+    ?- f_sucesora(gorra, [sombrero, bigote, gafas], [maria, claire, herman, eric], S).
+    S = [maria, claire, herman] ;
+    '''
+    query = list(prolog.query("f_sucesora(mofletes, [sombrero, bigote, gafas], [maria, claire, herman, eric], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['maria', 'claire', 'herman', 'eric']
+
+    query = list(prolog.query("f_sucesora(gorra, [sombrero, bigote, gafas], [maria, claire, herman, eric], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['maria', 'claire', 'herman']
+
+
+
