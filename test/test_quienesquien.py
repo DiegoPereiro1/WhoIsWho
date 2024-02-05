@@ -112,5 +112,35 @@ def test_no_es_objetivo():
     isGoal = list(prolog.query("test([herman], maria)."))
     assert not isGoal
 
+@pytest.mark.f_sucesora
+@pytest.mark.bajar
+def test_bajar_personaje():
+    '''
+    ?- bajar(sombrero, [maria, claire, herman], Supervivientes).                               
+    Supervivientes = [maria, claire] ;
+    '''
+    query = list(prolog.query("bajar(sombrero, [maria, claire, herman], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['maria', 'claire']
 
+@pytest.mark.f_sucesora
+@pytest.mark.bajar
+def test_bajar_personajes_sin_caracteristica():
+    '''
+    ?- bajar(bigote, [maria, claire, herman], Supervivientes).
+    Supervivientes = [] ;
+    '''
+    query = list(prolog.query("bajar(bigote, [maria, claire, herman], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == []
 
+@pytest.mark.f_sucesora
+@pytest.mark.bajar
+def test_salvar_personajes_con_caracteristica():
+    '''
+    ?- bajar(sombrero, [maria, claire, eric], Supervivientes).
+    Supervivientes = [maria, claire, eric] ;
+    '''
+    query = list(prolog.query("bajar(sombrero, [maria, claire, eric], S)."))
+    supervivientes = query[0]['S']
+    assert supervivientes == ['maria', 'claire', 'eric']
