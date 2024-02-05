@@ -36,6 +36,25 @@ def test_personaje():
     isPersonaje = list(prolog.query("personaje(tom)."))
     assert not isPersonaje
 
+@pytest.mark.bbdd
+def test_personajes():
+    '''
+    ?- personaje(P /_).
+    P = herman ;
+    P = maria ;
+    P = claire ;
+    P = alfred ;
+    P = charles.
+    '''
+    query = list(prolog.query("personaje(P / _)."))
+    personajes = [respuesta['P'] for respuesta in query]
+    assert personajes == ['herman', 'maria', 'claire', 'charles', 
+                          'richard', 'eric', 'alex', 'peter', 
+                          'philip', 'joe', 'paul', 'david', 
+                          'george', 'frans', 'alfred', 'bernard', 
+                          'bill', 'anita', 'robert', 'anne', 
+                          'sam', 'tom', 'susan', 'max']
+
 @pytest.mark.tiene
 def test_tiene():
     '''
