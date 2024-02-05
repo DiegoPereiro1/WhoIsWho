@@ -203,5 +203,20 @@ def test_f_sucesora_viven_personajes_sin_rasgo_no_objetivo():
     supervivientes = query[0]['S']
     assert supervivientes == ['maria', 'claire', 'herman']
 
+@pytest.mark.add_not
+def test_add_lista_a_lista_sin_repetidos():
+    '''
+    ?- add_not([sombrero, mujer], [gorra, gafas, bigote], L).
+    L = [mujer, sombrero, gorra, gafas, bigote] ;
+    '''
+    query = list(prolog.query("add_not([sombrero, mujer], [gorra, gafas, bigote], L)."))
+    L = query[0]['L']
+    assert L == ['mujer', 'sombrero', 'gorra', 'gafas', 'bigote']
 
+    query = list(prolog.query("add_not([gorra, gafas], [gorra, gafas, bigote], L)."))
+    L = query[0]['L']
+    assert L == ['gorra', 'gafas', 'bigote']
 
+    query = list(prolog.query("add_not([gorra, gafas, sombrero, mujer], [gorra, gafas, bigote], L)."))
+    L = query[0]['L']
+    assert L == ['mujer', 'sombrero', 'gorra', 'gafas', 'bigote']
