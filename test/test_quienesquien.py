@@ -44,3 +44,17 @@ def test_tiene():
     '''
     query = bool(list(prolog.query("tiene(maria, sombrero).")))
     assert query
+
+@pytest.mark.caracteristicas
+def test_caracteristicas_personaje():
+    '''
+    ?- caracteristicas(maria, C).
+    C = [mujer, pelo_largo, sombrero, pendientes, 
+        pelo_castaño, ojos_marrones, boca_pequeña, 
+        cejas_finas, nariz_pequeña].
+    '''
+    query = list(prolog.query("caracteristicas(maria, C)."))
+    caracteristicas = query[0]['C']
+    assert caracteristicas == ['mujer', 'pelo_largo', 'sombrero', 'pendientes', 
+                               'pelo_castaño', 'ojos_marrones', 'boca_pequeña', 
+                               'cejas_finas', 'nariz_pequeña']
