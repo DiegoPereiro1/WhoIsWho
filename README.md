@@ -52,7 +52,7 @@ Extrae de la imagen proporcionada (versión vintage del juego) las característi
 
 Si alguien necesita jugarlo de manera táctil ;) que me pida el juego.
 
-## Contesta a las siguientes preguntas antes de desarrollar el programa.
+## Contesta a las siguientes preguntas antes de desarrollar el programa agente.
 
 ### 1. Optimización vs Búsquedas
 
