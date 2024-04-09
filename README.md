@@ -8,9 +8,10 @@ Práctica MIA - Quién es quién
  * [Reglas del juego](#reglas-del-juego)
  * [Optimización vs Búsquedas](#1-optimización-vs-búsquedas)
  * [Entorno del agente](#2-entorno-del-agente)
- * [Estrutura del agente](#3-estrutura-del-agente)
- * [Programación lógica](#4-programación-lógica)
- * [Base de datos Prolog](#5-base-de-datos-prolog)
+ * [Algoritmo](#3-algoritmo)
+ * [Estrutura del agente](#4-estrutura-del-agente)
+ * [Programación lógica](#5-programación-lógica)
+ * [Base de datos Prolog](#6-base-de-datos-prolog)
  * [Entrega](#entrega)
  * [Bibliografía](#bibliografía)
 
@@ -68,7 +69,11 @@ Entorno de tareas | Completamente / parcialmente Observable| Agentes | Determini
 :---: | :---: | :---: | :---: | :---: | :---: | :---: |
  RPS | - | - | - | - | - |  - |
 
-### 3. Estrutura del agente
+### 3. Algoritmo.
+
+Justifica la adecuacióm del algoritmo de optimización que has seleccionado.
+
+### 4. Estrutura del agente
 
 Nuestro propósito és diseñar el **programa agente** que implementa la **función agente** o la **función que mapea** las percepciones a las acciones. 
 
@@ -85,11 +90,11 @@ A partir del modelo general de agente inteligente de la figura:
 
 Cada clase de agente combina componentes particulares de un modo particular para generar las acciones. 
 
-### 4. Programación lógica
+### 5. Programación lógica
 
 Justifica por qué el "quién es quién" puede considerarse un problema adecuado para ser resuelto empleando el paradigma de programación lógica. Chequea el capítulo 1 del libro _Beginning Java 8 Fundamentals_ disponible en la bibliografía, explicado en las sesiones del curso.
 
-### 5. Base de datos Prolog
+### 6. Base de datos Prolog
 
 Justifica la representación que has implementado mediante estructuras Prolog.
 
