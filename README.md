@@ -68,12 +68,20 @@ Describe el entorno del agente en los términos tratados en la primera unidad di
 Resume las características del entorno en una tabla con el formato:
 
 Entorno de tareas | Completamente / parcialmente Observable| Agentes | Determinista / Estocástico | Episódico / Secuencial | Estático / Dinámico | Discreto / Continuo
-:Completamente : | :---: | :---: | :---: | :---: | :---: | :---: |
+:Completamente Observable: | :Varios Agentes | :Determinista: | :Secuencial: | :ESTATICO: | :Discreto: |
 
 
 ### 3. Algoritmo.
 
 Justifica la adecuacióm del algoritmo de optimización que has seleccionado.
+
+El algoritmo de optimización seleccionado para este juego es un enfoque heurístico basado en la búsqueda en profundidad limitada. Y se elegió debido a las siguientes razones:
+-El juego requiere una busquerda en un espacio de estados complejo, donde cada estado representa el conjunto actual de personajes posibles y sus caracterítricas. En este caso la abse de datos es pequeña y entonces el coste computacional no es muy grande pero si se ampliase la base de datos el enfoque euristico como la búsqueda en profundidad limitada es adecuado para explorar de manera eficiente el espacio de estados.
+
+-La búsqueda en profundidad limitada proporciona un mecanismo para controlar la cantidad de exploración en el espacio de estados dadop que el agente tiene recusros limitados.
+
+-La búsqueda en profundidad limitada es relativamente fácil de implementar y entender en comparación con otros algoritmos de búsqueda más complejos. 
+
 
 ### 4. Estrutura del agente
 
@@ -96,11 +104,16 @@ Cada clase de agente combina componentes particulares de un modo particular para
 
 Justifica por qué el "quién es quién" puede considerarse un problema adecuado para ser resuelto empleando el paradigma de programación lógica. Chequea el capítulo 1 del libro _Beginning Java 8 Fundamentals_ disponible en la bibliografía, explicado en las sesiones del curso.
 
+El juego quien es quien es adecuado para ser resuelto empleando el paradigma de programacaion lógica por diferentes motivos, uno puede ser la representación de conocimiento, otra la base de conocimientos declarativa en la programación lógica, el conocimiento se representa de forma declarativa mediante reglas y hechos, otro puede ser el razonamientoa automático donde el motor de inferencia de Prolog puede deducir conclusiones lógicas a partir de las reglas y hechos definidos en la base de conocimientos.
+
 ### 6. Base de datos Prolog
 
 Justifica la representación que has implementado mediante estructuras Prolog.
 
 Repasa los contenidos de mis apuntes Prolog disponibles en [Prolog for IA](https://github.com/dfleta/prolog-for-IA).
+
+Por la declaratividad ya que el juego quien es quien permite una representación declarativa del conocimiento. Tambien entra en juego la eficiencia del razonamiento ya que prolog ofrece un motor de inferencia eficiente que puede realizar razonamientos automáticos sobre la base de conocimientos definida.
+Prolog tambien proporciona sintaxis flexible y expresiva que permite la representación de relaciones complejas. Y la más importante sería la facilidad de consulta y manipulación de la base de conocimiento especificada.
 
 ## Entrega
 
