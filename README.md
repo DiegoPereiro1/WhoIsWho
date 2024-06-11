@@ -59,6 +59,8 @@ Si alguien necesita jugarlo de manera táctil ;) que me pida el juego.
 
 Justifica por qué este juego puede considerarse un problema de optimización. Consulta la bibliografía recomendada.
 
+Se puede considerar un problema de optimización ya que el objetivo del juego es adivinar el personaje elegido con el menor número de preguntas posibles. Por lo tanto cuando eliges las caracteristicas que mas objetivos pueden tener son las que reducen más el camino hasta llegar al objetivo. Y por lo tanto advinar el personaje final en menos pasos.
+
 ### 2. Entorno del agente
 
 Describe el entorno del agente en los términos tratados en la primera unidad didáctica y proyecto de este módulo.
@@ -66,8 +68,8 @@ Describe el entorno del agente en los términos tratados en la primera unidad di
 Resume las características del entorno en una tabla con el formato:
 
 Entorno de tareas | Completamente / parcialmente Observable| Agentes | Determinista / Estocástico | Episódico / Secuencial | Estático / Dinámico | Discreto / Continuo
-:---: | :---: | :---: | :---: | :---: | :---: | :---: |
- RPS | - | - | - | - | - |  - |
+:Completamente : | :---: | :---: | :---: | :---: | :---: | :---: |
+
 
 ### 3. Algoritmo.
 
